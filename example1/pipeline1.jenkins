@@ -1,5 +1,5 @@
 node('maven')  {
- stage 'Build in Dev Project'
+ stage 'Simple Build'
  openshiftBuild(namespace: 'cicddev', buildConfig: 'nodetest', showBuildLogs: 'true')
   stage 'Deploy in Dev Project'
  openshiftDeploy(namespace: 'cicddev', deploymentConfig: 'nodetest')
