@@ -1,9 +1,9 @@
 node('maven')  
         {
-         stage 'Build'
+         stage 'BuildDev'
          openshiftBuild(namespace: 'poc-slarq', buildConfig: 'users-informix-poc', showBuildLogs: 'true')
-         //stage 'Deploy'
-         //openshiftDeploy(namespace: 'simplepipeline', deploymentConfig: 'nodetest')
+         stage 'DeployTest'
+         openshiftDeploy(namespace: 'poc-slarq-test ', deploymentConfig: 'users-informix-poc', showBuildLogs: 'true')
          //stage 'Scale'   
          //openshiftScale(namespace: 'simplepipeline', deploymentConfig: 'nodetest', replicaCount: '4')
-        }
+        
