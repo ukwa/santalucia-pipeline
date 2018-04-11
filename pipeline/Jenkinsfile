@@ -9,11 +9,9 @@ node('maven')
          stage 'VerifyDeploymentTest'
          openshiftVerifyDeployment(namespace: 'poc-slarq-test', deploymentConfig: 'users-informix-poc')
          stage('Promote to Prod?') {
-                steps {
                   timeout(time:15, unit:'MINUTES') {
                       input message: "Promote to Prod?", ok: "Promote"
                 }
                 openshiftDeploy(namespace: 'poc-slarq-prod', deploymentConfig: 'users-informix-poc', showBuildLogs: 'true')
-                }
           }
          } 
