@@ -17,4 +17,4 @@ node('maven')
                 }}
          //stage 'Scale'   
          //openshiftScale(namespace: 'simplepipeline', deploymentConfig: 'nodetest', replicaCount: '4')
-        
+       } 
