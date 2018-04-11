@@ -5,21 +5,21 @@ pipeline {
   stages {
     stage('Build App') {
       steps {
-        sh "mvn package -Pfis-karaf"
+        sh "mvn package "
       }
     }
     stage('Create Image Builder') {
       when {
         expression {
           openshift.withCluster() {
-            return !openshift.selector("bc", "crtstservici").exists();
+            return !openshift.selector("bc", "users-informix-poc").exists();
           }
         }
       }
       steps {
         script {
           openshift.withCluster() {
-            openshift.newBuild("--name=crtstservici", "--image-stream=openshift/fis-karaf-openshift:2.0", "--binary")
+            openshift.newBuild("--name=users-informix-poc", "--image-stream=openshift/redhat-openjdk18-openshift:1.2")
           }
         }
       }
