@@ -8,31 +8,15 @@ pipeline {
         sh "mvn package "
       }
     }
-    stage('Create Image Builder') {
-      when {
-        expression {
-          openshift.withCluster() {
-            return !openshift.selector("bc", "users-informix-poc").exists();
-          }
-        }
-      }
+    stage('Build Image') {
       steps {
         script {
           openshift.withCluster() {
-            openshift.newBuild("--name=users-informix-poc", "--image-stream=openshift/redhat-openjdk18-openshift:1.2")
+            openshift.selector("bc", "users-informix-poc").startBuild()
           }
         }
       }
     }
-//    stage('Build Image') {
-//      steps {
-//        script {
-//          openshift.withCluster() {
-//            openshift.selector("bc", "crtstservici").startBuild("--from-file=target/crtstservici.jar", "--wait")
-//          }
-//        }
-//      }
-//    }
 //    stage('Promote to DEV') {
 //      steps {
 //        script {
