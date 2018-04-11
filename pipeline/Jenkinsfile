@@ -1,63 +1,9 @@
-pipeline {
-  stages {
-    stage('Build Image') {
-      steps {
-        script {
-          openshift.withCluster() {
-            openshift.selector("bc", "users-informix-poc").startBuild()
-          }
+node('maven')  
+        {
+         stage 'Build'
+         openshiftBuild(namespace: 'poc-slarq', buildConfig: 'users-informix-poc', showBuildLogs: 'true')
+         //stage 'Deploy'
+         //openshiftDeploy(namespace: 'simplepipeline', deploymentConfig: 'nodetest')
+         //stage 'Scale'   
+         //openshiftScale(namespace: 'simplepipeline', deploymentConfig: 'nodetest', replicaCount: '4')
         }
-      }
-    }
-//    stage('Promote to DEV') {
-//      steps {
-//        script {
-//          openshift.withCluster() {
-//            openshift.tag("crtstservici:latest", "crtstservici:dev")
-//          }
-//        }
-//      }
-//    }
-//    stage('Create DEV') {
-//      when {
-//        expression {
-//          openshift.withCluster() {
-//            return !openshift.selector('dc', 'crtstservici-dev').exists()
-//          }
-//        }
-//      }
-//      steps {
-//        script {
-//          openshift.withCluster() {
-//            openshift.newApp("crtstservici:latest", "--name=crtstservici-dev").narrow('svc').expose()
-//          }
-//        }
-//      }
-//    }
-//    stage('Promote STAGE') {
-//      steps {
-//        script {
-//          openshift.withCluster() {
-//            openshift.tag("crtstservici:dev", "crtstservici:stage")
-//          }
-//        }
-//      }
-//    }
-//    stage('Create STAGE') {
-//      when {
-//        expression {
-//          openshift.withCluster() {
-//            return !openshift.selector('dc', 'crtstservici-stage').exists()
-//          }
-//        }
-//      }
-//      steps {
-//        script {
-//          openshift.withCluster() {
-//            openshift.newApp("crtstservici:stage", "--name=crtstservici-stage").narrow('svc').expose()
-//          }
-//        }
-//      }
-//    }
-  }
-}
