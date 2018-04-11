@@ -1,0 +1,9 @@
+node('maven')  
+{
+ stage 'Build'
+ openshiftBuild(namespace: 'simplepipeline', buildConfig: 'nodetest', showBuildLogs: 'true')
+ stage 'Deploy'
+ openshiftDeploy(namespace: 'simplepipeline', deploymentConfig: 'nodetest')
+ stage 'Scale'   
+ openshiftScale(namespace: 'simplepipeline', deploymentConfig: 'nodetest', replicaCount: '4')
+}
