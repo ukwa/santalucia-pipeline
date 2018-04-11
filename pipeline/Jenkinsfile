@@ -14,6 +14,7 @@ node('maven')
                       input message: "Promote to Prod?", ok: "Promote"
                   }
                   openshiftDeploy(namespace: 'poc-slarq-prod', deploymentConfig: 'users-informix-poc', showBuildLogs: 'true')
+                }}
          //stage 'Scale'   
          //openshiftScale(namespace: 'simplepipeline', deploymentConfig: 'nodetest', replicaCount: '4')
-       } 
+        
