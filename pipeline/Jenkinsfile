@@ -3,7 +3,7 @@ node('maven')
          stage 'BuildDev'
          openshiftBuild(namespace: 'poc-slarq', buildConfig: 'users-informix-poc', showBuildLogs: 'true')
          stage 'VerifyBuild'
-         openshiftVerifyBuild(namespace: 'poc-slarq', bldCfg) 
+         openshiftVerifyBuild(namespace: 'poc-slarq', buildConfig: 'users-informix-poc') 
          stage 'DeployTest'
          openshiftDeploy(namespace: 'poc-slarq-test', deploymentConfig: 'users-informix-poc', showBuildLogs: 'true')
          stage 'VerifyDeploymentTest'
