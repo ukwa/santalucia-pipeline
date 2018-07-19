@@ -1,17 +1,17 @@
-node('maven')  
+node('nodejs')  
         {
          stage 'BuildDev'
-         openshiftBuild(namespace: 'poc-slarq', buildConfig: 'users-informix-poc', showBuildLogs: 'true')
+         openshiftBuild(namespace: 'ukwa-pipeline-dev', buildConfig: 'nodejs-ex', showBuildLogs: 'true')
          stage 'VerifyBuild'
-         openshiftVerifyBuild(namespace: 'poc-slarq', buildConfig: 'users-informix-poc') 
+         openshiftVerifyBuild(namespace: 'ukwa-pipeline-dev', buildConfig: 'nodejs-ex') 
          stage 'DeployTest'
-         openshiftDeploy(namespace: 'poc-slarq-test', deploymentConfig: 'users-informix-poc', showBuildLogs: 'true')
+         openshiftDeploy(namespace: 'ukwa-pipeline-test', deploymentConfig: 'nodejs-ex', showBuildLogs: 'true')
          stage 'VerifyDeploymentTest'
-         openshiftVerifyDeployment(namespace: 'poc-slarq-test', deploymentConfig: 'users-informix-poc')
+         openshiftVerifyDeployment(namespace: 'ukwa-pipeline-test', deploymentConfig: 'nodejs-ex')
          stage('Promote to Prod?') {
                   timeout(time:15, unit:'MINUTES') {
                       input message: "Promote to Prod?", ok: "Promote"
                 }
-                openshiftDeploy(namespace: 'poc-slarq-prod', deploymentConfig: 'users-informix-poc', showBuildLogs: 'true')
+                openshiftDeploy(namespace: 'ukwa-pipeline-prod', deploymentConfig: 'nodejs-ex', showBuildLogs: 'true')
           }
          } 
