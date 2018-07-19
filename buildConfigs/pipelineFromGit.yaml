@@ -5,7 +5,7 @@ metadata:
 spec:
   source:
     git:
-      uri: "https://github.com/openpabz/santalucia-pipeline"
+      uri: "https://github.com/ukwa/ukwa-pipeline"
   strategy:
     jenkinsPipelineStrategy:
-      jenkinsfilePath: pipeline/santaluciapipeline.jenkins 
+      jenkinsfilePath: pipeline/Jenkinsfile
